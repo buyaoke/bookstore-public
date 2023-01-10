@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.CredentialNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/user")
 @RestController
@@ -17,9 +19,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping()
-    public List<User> index() {
+    public Integer findCount(){
         return userMapper.findAll();
+    }
+
+    @GetMapping("/page")
+    public Map<String,Object> findPage(@RequestParam Integer pageNum,
+                                       @RequestParam Integer pageSize,
+                                       @RequestParam String username) {
+        username = "%" + username +"%";
+        Integer total = userMapper.selectTotal(username);
+        pageNum = (pageNum - 1) * pageSize;
+        List<User> users = userMapper.selectPage(pageNum, pageSize,username);
+        Map<String, Object> res = new HashMap<>();
+        res.put("data", users);
+        res.put("total",total);
+        return res;
+
     }
 
     @PostMapping()
@@ -32,4 +48,6 @@ public class UserController {
     public Integer delete(@PathVariable Integer id) {
         return userMapper.deleteById(id);
     }
+
+
 }

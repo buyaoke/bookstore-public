@@ -2,17 +2,18 @@
   <div>
     <el-container>
       <el-aside width="sideWidth + 'px'"
-        style="background-color: rgb(238, 241, 246); min-height: 100vh; box-shadow: 2px 0 6px rgb(0, 21, 41);">
+                style="background-color: rgb(238, 241, 246); min-height: 100vh; box-shadow: 2px 0 6px rgb(0, 21, 41);">
         <el-menu :default-openeds="['1', '3']" style="min-height:100%;overflow-x: hidden;"
-          background-color="rgb(48,65,86)" text-color="#fff" active-text-color="#ffd04b" :collapse-transition="false"
-          :collapse="isCollapse">
+                 background-color="rgb(48,65,86)" text-color="#fff" active-text-color="#ffd04b"
+                 :collapse-transition="false"
+                 :collapse="isCollapse">
           <div style="height:60px;line-height:60px;text-align:center">
             <img src="../assets/logo.png" alt=""
-              style="width:20px; position: relative; top: 5px;margin-right: 5px;"></img>
+                 style="width:20px; position: relative; top: 5px;margin-right: 5px;"></img>
             <b style="color:white" v-show="isShow">图书商城后台管理系统</b>
           </div>
           <el-submenu index="1">
-            <template slot="title"> <i class="el-icon-message"></i>
+            <template slot="title"><i class="el-icon-message"></i>
               <span slot="title">导航一</span></template>
             <el-menu-item-group>
               <template slot="title">分组一</template>
@@ -80,20 +81,16 @@
           <div style="margin-bottom:30px">
             <el-breadcrumb separator="/">
               <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              
+
               <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-              
+
             </el-breadcrumb>
           </div>
-
-
-
-
           <div style="padding:10px 0">
-            <el-input style="width:200px" suffix-icon="el-icon-search" placeholder="请输入名称"></el-input>
+            <el-input style="width:200px" suffix-icon="el-icon-search" placeholder="请输入名称" v-model="username"></el-input>
             <el-input style="width:200px" suffix-icon="el-icon-message" placeholder="请输入邮箱" class="ml-5"></el-input>
             <el-input style="width:200px" suffix-icon="el-icon-position" placeholder="请输入地址" class="ml-5"></el-input>
-            <el-button class="ml-5" type="primary">搜索</el-button>
+            <el-button class="ml-5" type="primary" @click="onload">搜索</el-button>
           </div>
           <div style="margin:10px 0">
             <el-button type="primary">新增<i class="el-icon-circle-plus-outline"></i></el-button>
@@ -103,12 +100,19 @@
           </div>
 
           <el-table :data="tableData" border stripe header-cell-class-name="headbg">
-            <el-table-column prop="date" label="日期" width="140">
+            <el-table-column prop="id" label="ID" width="80">
             </el-table-column>
-            <el-table-column prop="name" label="姓名" width="120">
+            <el-table-column prop="username" label="用户名" width="140">
+            </el-table-column>
+            <el-table-column prop="nickname" label="昵称" width="120">
+            </el-table-column>
+            <el-table-column prop="email" label="邮箱">
+            </el-table-column>
+            <el-table-column prop="phone" label="电话">
             </el-table-column>
             <el-table-column prop="address" label="地址">
             </el-table-column>
+
             <el-table-column label="操作">
               <template slot-scope="scope">
                 <el-button type="success">编辑<i class="el-icon-edit"></i></el-button>
@@ -117,9 +121,12 @@
             </el-table-column>
           </el-table>
           <div style="padding: 10px 0">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-              :current-page="currentPage4" :page-sizes="[5, 10, 15, 20]" :page-size="10"
-              layout="total, sizes, prev, pager, next, jumper" :total="400">
+            <el-pagination @size-change="handleSizeChange"
+                           @current-change="handleCurrentChange"
+                           :current-page="pageNum"
+                           :page-sizes="[2, 5, 10, 20]"
+                           :page-size="pageSize"
+                           layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
           </div>
         </el-main>
@@ -131,8 +138,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
 
 export default {
   name: 'HomeView',
@@ -144,14 +150,40 @@ export default {
 
     };
     return {
-      tableData: Array(10).fill(item),
+      pageNum:1,
+      pageSize:2,
+      tableData: [],
       collapseBtnClass: 'el-icon-s-fold',
       isCollapse: false,
       sideWidth: 200,
-      isShow: true
+      isShow: true,
+      currentPage:1,
+      total:0,
+      username:""
     }
   },
+  created() {
+    this.onload();
+
+  },
   methods: {
+    onload(){
+      fetch("http://localhost:9090/user/page?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&username="+this.username)
+          .then(res => res.json())
+          .then(res=>{
+            console.log(res)
+            this.tableData = res.data;
+            this.total = res.total
+          })
+    },
+    handleSizeChange(pageSize){
+      this.pageSize = pageSize
+      this.onload()
+    },
+    handleCurrentChange(pageNum){
+      this.pageNum = pageNum
+      this.onload();
+    },
     collapse() {
       //点击隐藏
       this.isCollapse = !this.isCollapse;
