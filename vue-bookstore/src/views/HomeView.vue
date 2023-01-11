@@ -98,7 +98,10 @@
           </div>
           <div style="margin:10px 0">
             <el-button type="primary" @click="handleAddd">新增<i class="el-icon-circle-plus-outline"></i></el-button>
-            <el-button type="danger" @click="delBatch">批量删除<i class="el-icon-remove-outline"></i></el-button>
+            <el-popconfirm confirm-button-text='确定' cancel-button-text='我再想想' icon="el-icon-info" icon-color="red"
+                           title="确定删除吗？" @confirm="delBatch">
+            <el-button type="danger" slot="reference" style="margin: 0 5px">批量删除<i class="el-icon-remove-outline"></i></el-button>
+            </el-popconfirm>
             <el-button type="primary">导入<i class="el-icon-bottom"></i></el-button>
             <el-button type="primary">导出<i class="el-icon-top"></i></el-button>
           </div>
