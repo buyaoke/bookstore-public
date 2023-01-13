@@ -1,5 +1,6 @@
 package com.lz.bookstore.service;
 
+import com.lz.bookstore.controller.dto.UserDto;
 import com.lz.bookstore.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    Boolean login(UserDto user);
 }

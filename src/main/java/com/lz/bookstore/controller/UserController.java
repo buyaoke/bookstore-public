@@ -1,10 +1,13 @@
 package com.lz.bookstore.controller;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.stereotype.Controller;
+import com.lz.bookstore.controller.dto.UserDto;
+
+
 import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lz.bookstore.service.IUserService;
@@ -28,6 +31,15 @@ public class UserController {
     @PostMapping
     public Boolean save(@RequestBody User user) {
         return userService.saveOrUpdate(user);
+    }
+
+    @PostMapping("/login")
+    public Boolean login(@RequestBody UserDto user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        if(StrUtil.isBlank(username) || StrUtil.isBlank(password))
+            return false;
+        return userService.login(user);
     }
 
     @DeleteMapping("/{id}")
