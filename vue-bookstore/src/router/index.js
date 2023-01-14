@@ -10,10 +10,11 @@ const routes = [
     path: '/',
     name: 'Manage',
     component: () => import('../views/ManageView.vue'),
-    redirect:"/home",
+    redirect:"/login",
     children:[
       {path: 'user', name: 'User', component: () => import('../views/User.vue')},
       {path: 'home', name: 'Home', component: () => import('../views/Home.vue')},
+      {path: 'person', name: '个人信息', component: () => import('../views/Person.vue')},
     ]
   },
   {
@@ -25,6 +26,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register.vue')
   },
 ]
 

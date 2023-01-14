@@ -3,6 +3,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lz.bookstore.common.Constants;
+import com.lz.bookstore.common.Result;
 import com.lz.bookstore.controller.dto.UserDto;
 
 
@@ -33,18 +35,32 @@ public class UserController {
         return userService.saveOrUpdate(user);
     }
 
+    @PostMapping("register")
+    public Result register(@RequestBody UserDto user) {
+        if(StrUtil.isBlank(user.getUsername()) || StrUtil.isBlank(user.getPassword()))
+            return Result.error(Constants.code_400,"参数错误");
+        return Result.success(userService.register(user));
+    }
+
     @PostMapping("/login")
-    public Boolean login(@RequestBody UserDto user) {
+    public Result login(@RequestBody UserDto user) {
         String username = user.getUsername();
         String password = user.getPassword();
         if(StrUtil.isBlank(username) || StrUtil.isBlank(password))
-            return false;
-        return userService.login(user);
+            return Result.error(Constants.code_400,"参数错误");
+        UserDto userDto = userService.login(user);
+        return Result.success(userDto);
     }
 
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable Integer id) {
         return userService.removeById(id);
+    }
+    @GetMapping("/username/{username}")
+    public Result getone(@PathVariable String username) {
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("username",username);
+        return Result.success(userService.getOne(userQueryWrapper));
     }
 
     @GetMapping
