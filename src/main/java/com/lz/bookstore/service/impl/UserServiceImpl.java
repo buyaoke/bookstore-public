@@ -12,6 +12,7 @@ import com.lz.bookstore.exception.ServiceException;
 import com.lz.bookstore.mapper.UserMapper;
 import com.lz.bookstore.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lz.bookstore.utils.TokenUtils;
 import org.springframework.stereotype.Service;
 
 
@@ -32,6 +33,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         if(one != null){
             BeanUtil.copyProperties(one,user,true);
+            String token = TokenUtils.getToken(one.getId().toString(), one.getPassword());
+            user.setToken(token);
             return user;
         } else {
             throw new ServiceException(Constants.code_600,"用户名或者密码错误");

@@ -1,4 +1,4 @@
-package com.lz.bookstore.generator;
+package com.lz.bookstore.utils;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;

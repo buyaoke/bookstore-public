@@ -4,10 +4,10 @@
       <div style="margin: 20px 0;text-align: center;font-size: 24px"><b>登 录</b>
         <el-form :model="user" :rules="rules" ref="userForm">
           <el-form-item prop="username">
-        <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-user" v-model="user.username" ></el-input>
+        <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-user" v-model="user.username" >admin</el-input>
           </el-form-item>
           <el-form-item prop="password">
-        <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-lock" show-password v-model="user.password" ></el-input>
+        <el-input size="medium" style="margin: 10px 0" prefix-icon="el-icon-lock" show-password v-model="user.password" >admin</el-input>
           </el-form-item>
         <div style="margin: 10px 0; text-align: right">
           <el-button type="primary" size="small" autocomplete="off" @click="login">登录</el-button>

@@ -8,6 +8,7 @@ import com.lz.bookstore.common.Result;
 import com.lz.bookstore.controller.dto.UserDto;
 
 
+import com.lz.bookstore.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -93,6 +94,9 @@ public class UserController {
             queryWrapper.like("address",address);
         }
         queryWrapper.orderByDesc("create_time");
+
+        User currentUser = TokenUtils.getCurrentUser();
+        System.out.println("aaaaa"+currentUser);
         return userService.page(userPage,queryWrapper);
 
     }
