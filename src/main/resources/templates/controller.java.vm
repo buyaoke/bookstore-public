@@ -1,5 +1,7 @@
 package ${package.Controller};
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lz.bookstore.common.Result;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -39,29 +41,34 @@ public class ${table.controllerName} {
     private ${table.serviceName} ${table.entityPath}Service;
 
     @PostMapping
-    public Boolean save(@RequestBody ${entity} ${table.entityPath}) {
-        return ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
+    public Result save(@RequestBody ${entity} ${table.entityPath}) {
+        boolean flag = ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
+        return Result.success(flag);
     }
 
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id) {
-        return ${table.entityPath}Service.removeById(id);
+    public Result delete(@PathVariable Integer id) {
+        boolean flag = ${table.entityPath}Service.removeById(id);
+        return Result.success(flag);
     }
 
     @GetMapping
-    public List<${entity}> findAll() {
-        return ${table.entityPath}Service.list();
+    public Result findAll() {
+        List<${entity}> ${entity}s = ${table.entityPath}Service.list();
+        return Result.success(${entity}s);
     }
 
     @GetMapping("/{id}")
-    public List<${entity}> findOne(@PathVariable Integer id) {
-        return ${table.entityPath}Service.list();
+    public Result findOne(@PathVariable Integer id) {
+        ${entity} ${table.entityPath} = ${table.entityPath}Service.getById(id);
+        return Result.success(${table.entityPath});
     }
 
     @GetMapping("/page")
-    public Page<${entity}> findPage(@RequestParam Integer pageNum,
-                                    @RequestParam Integer pageSize) {
-        return ${table.entityPath}Service.page(new Page<>(pageNum, pageSize));
+    public Result findPage(@RequestParam Integer pageNum,
+                           @RequestParam Integer pageSize) {
+        IPage<${entity}> page = ${table.entityPath}Service.page(new Page<>(pageNum, pageSize));
+        return Result.success(page);
     }
 
 }

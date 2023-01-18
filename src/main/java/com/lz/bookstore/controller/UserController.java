@@ -6,12 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lz.bookstore.common.Constants;
 import com.lz.bookstore.common.Result;
 import com.lz.bookstore.controller.dto.UserDto;
-
-
 import com.lz.bookstore.utils.TokenUtils;
-import com.sun.net.httpserver.Authenticator;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.lz.bookstore.service.IUserService;
@@ -76,8 +72,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public Result findOne(@PathVariable Integer id) {
-        List<User> list = userService.list();
-        return Result.success(list);
+        User user = userService.getById(id);
+        return Result.success(user);
     }
 
 
@@ -101,8 +97,8 @@ public class UserController {
         }
         queryWrapper.orderByDesc("create_time");
 
-        User currentUser = TokenUtils.getCurrentUser();
-        System.out.println("aaaaa"+currentUser);
+
+
         IPage<User> page = userService.page(userPage, queryWrapper);
         return Result.success(page);
 
