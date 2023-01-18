@@ -23,7 +23,7 @@ public class CodeGenerator {
                 .packageConfig(builder -> {
                     builder.parent("com.lz.bookstore") // 设置父包名
                             .moduleName("") // 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "C:\\Users\\15382\\Desktop\\毕设\\code product\\bookstore\\src\\main\\resources\\codemapper\\")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "C:\\Users\\15382\\Desktop\\毕设\\code product\\bookstore\\src\\main\\resources\\mapper\\")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
                     builder.addInclude("sys_user")// 设置需要生成的表名

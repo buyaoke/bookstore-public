@@ -9,6 +9,7 @@ import com.lz.bookstore.controller.dto.UserDto;
 
 
 import com.lz.bookstore.utils.TokenUtils;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +33,9 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping
-    public Boolean save(@RequestBody User user) {
-        return userService.saveOrUpdate(user);
+    public Result save(@RequestBody User user) {
+        boolean flag = userService.saveOrUpdate(user);
+        return Result.success(flag);
     }
 
     @PostMapping("register")
@@ -54,8 +56,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable Integer id) {
-        return userService.removeById(id);
+    public Result delete(@PathVariable Integer id) {
+
+        boolean flag = userService.removeById(id);
+        return Result.success(flag);
     }
     @GetMapping("/username/{username}")
     public Result getone(@PathVariable String username) {
@@ -65,19 +69,21 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> findAll() {
-        return userService.list();
+    public Result findAll() {
+        List<User> users = userService.list();
+        return Result.success(users);
     }
 
     @GetMapping("/{id}")
-    public List<User> findOne(@PathVariable Integer id) {
-        return userService.list();
+    public Result findOne(@PathVariable Integer id) {
+        List<User> list = userService.list();
+        return Result.success(list);
     }
 
 
 
     @GetMapping("/page")
-    public IPage<User> findPage(@RequestParam Integer pageNum,
+    public Result findPage(@RequestParam Integer pageNum,
                                 @RequestParam Integer pageSize,
                                 @RequestParam(defaultValue = "") String username,
                                 @RequestParam(defaultValue = "") String email,
@@ -97,13 +103,16 @@ public class UserController {
 
         User currentUser = TokenUtils.getCurrentUser();
         System.out.println("aaaaa"+currentUser);
-        return userService.page(userPage,queryWrapper);
+        IPage<User> page = userService.page(userPage, queryWrapper);
+        return Result.success(page);
 
     }
 
     @PostMapping("/del/batch")
-    public boolean deleteBatch(@RequestBody List<Integer> ids) {
-        return userService.removeBatchByIds(ids);
+    public Result deleteBatch(@RequestBody List<Integer> ids) {
+
+        boolean flag = userService.removeBatchByIds(ids);
+        return Result.success(flag);
     }
 
 }
