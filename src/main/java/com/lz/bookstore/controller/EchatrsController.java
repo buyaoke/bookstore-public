@@ -3,9 +3,12 @@ package com.lz.bookstore.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.Month;
 import cn.hutool.core.date.Quarter;
 import com.lz.bookstore.common.Result;
+import com.lz.bookstore.controller.dto.OrderDto;
 import com.lz.bookstore.entity.User;
+import com.lz.bookstore.service.IOrderService;
 import com.lz.bookstore.service.IUserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @RestController()
 @RequestMapping("/echarts")
@@ -26,12 +27,62 @@ public class EchatrsController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping("/example")
+    @Autowired
+    private IOrderService orderService;
+
+    @GetMapping("/revenue")
     public Result get(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("x", CollUtil.newArrayList("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"));
-        map.put("y",CollUtil.newArrayList(150, 230, 224, 218, 135, 147, 260));
-        return Result.success(map);
+        Double JANUARY = 0.0;
+        Double FEBRUARY = 0.0;
+        Double MARCH = 0.0;
+        Double APRIL = 0.0;
+        Double MAY = 0.0;
+        Double JUNE = 0.0;
+        Double JULY = 0.0;
+        Double AUGUST = 0.0;
+        Double SEPTEMBER = 0.0;
+        Double OCTOBER = 0.0;
+        Double NOVEMBER = 0.0;
+        Double DECEMBER = 0.0;
+        Double UNDECIMBER = 0.0;
+        Double max=0.0;
+
+        List<OrderDto> order = orderService.findOrder();
+        HashSet<String> customerSet = new HashSet<>();
+        for (OrderDto orderDto : order) {
+            Date createTime = orderDto.getCreateTime();
+            Month month = DateUtil.monthEnum(createTime);
+            if (max<orderDto.getOrderPrice()){
+                max = orderDto.getOrderPrice();
+            };
+            customerSet.add(orderDto.getCustomerName());
+            switch (month){
+                case JANUARY:JANUARY+=orderDto.getOrderPrice();break;
+                case FEBRUARY:FEBRUARY+=orderDto.getOrderPrice();break;
+                case MARCH:MARCH+=orderDto.getOrderPrice();break;
+                case APRIL:APRIL+=orderDto.getOrderPrice();break;
+                case MAY:MAY+=orderDto.getOrderPrice();break;
+                case JUNE:JUNE+=orderDto.getOrderPrice();break;
+                case JULY:JULY+=orderDto.getOrderPrice();break;
+                case AUGUST:AUGUST+=orderDto.getOrderPrice();break;
+                case SEPTEMBER:SEPTEMBER+=orderDto.getOrderPrice();break;
+                case OCTOBER:OCTOBER+=orderDto.getOrderPrice();break;
+                case NOVEMBER:NOVEMBER+=orderDto.getOrderPrice();break;
+                case DECEMBER:DECEMBER+=orderDto.getOrderPrice();break;
+                case UNDECIMBER:UNDECIMBER+=orderDto.getOrderPrice();break;
+            }
+        }
+        ArrayList<Double> integers = CollUtil.newArrayList(JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE,
+                JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER, UNDECIMBER);
+        int size = customerSet.size();
+        Double maxMonth = CollUtil.max(integers);
+        HashMap<String, Object> objectHashMap = new HashMap<>();
+        objectHashMap.put("max",max);
+        objectHashMap.put("maxMonth",maxMonth);
+        objectHashMap.put("data",integers);
+        objectHashMap.put("customercount",size);
+        return Result.success(objectHashMap);
+
     }
     @GetMapping("/members")
     public Result members(){

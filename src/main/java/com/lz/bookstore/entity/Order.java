@@ -14,23 +14,27 @@ import lombok.Setter;
  * </p>
  *
  * @author buyaoke_lz
- * @since 2023-01-18
+ * @since 2023-01-19
  */
 @Getter
 @Setter
-  @TableName("sys_order")
+@TableName("sys_order")
 @ApiModel(value = "Order对象", description = "")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      private Integer bussionId;
+    private Integer bussionId;
 
     private Integer customerId;
 
     private Integer bookId;
 
     private LocalDateTime createTime;
+
+    private LocalDateTime updaeTime;
+
+    private Double orderPrice;
 
 
 }
