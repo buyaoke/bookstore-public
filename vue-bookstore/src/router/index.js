@@ -35,6 +35,15 @@ const routes = [
     name: 'register',
     component: () => import('../views/Register.vue')
   },
+  {
+    path: '/front',
+    name: 'FrontHome',
+    component: () => import('../views/front/Front.vue'),
+    children: [
+        {path: "home", name: "FrontHome", component: () => import('../views/front/Home.vue')}],
+
+  },
+
 ]
 
 const router = new VueRouter({

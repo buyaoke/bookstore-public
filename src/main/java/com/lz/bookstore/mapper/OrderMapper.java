@@ -19,25 +19,24 @@ import java.util.List;
  * @since 2023-01-19
  */
 public interface OrderMapper extends BaseMapper<Order> {
-
-    @Select("select sys_book.book_name,\n" +
-            "\t\t\t\tsys_order.order_id,\n" +
-            "\t\t\t\tsys_customer.username as customer_name,\n" +
-            "\t\t\t\tsys_order.create_time,\n" +
-            "\t\t\t\tsys_order.order_price,\n" +
-            "\t\t\t\tsys_bussion.username as bussion_name \n" +
-            "\t\t\t\t\n" +
-            "\t\t\t\tfrom sys_order \n" +
-            "\tJOIN sys_book \n" +
-            "\t\ton sys_book.book_id = sys_order.book_id\n" +
-            "\tJOIN sys_customer\n" +
-            "\t\ton sys_customer.id = sys_order.customer_id\n" +
-            "\tjoin sys_bussion\n" +
-            "\t\ton sys_bussion.id = sys_order.bussion_id\n")
+    @Select("select sys_book.book_name," +
+            "sys_order.order_id," +
+            "sys_customer.username as customer_name," +
+            "sys_order.create_time," +
+            "sys_order.order_price," +
+            "sys_bussion.username as bussion_name " +
+            "from sys_order " +
+            "JOIN sys_book " +
+            "on sys_book.book_id = sys_order.book_id " +
+            "JOIN sys_customer " +
+            "on sys_customer.id = sys_order.customer_id " +
+            "join sys_bussion " +
+            "on sys_bussion.id = sys_order.bussion_id ")
     List<OrderDto> findOrder();
 
     @Update("update sys_order set order_price = #{orderPrice} where order_id=#{orderId}")
     boolean savePrice(Double orderPrice,Integer orderId);
+
     @Delete("delete from sys_order where order_id=#{id}")
     boolean delPrice(Integer id);
 }
