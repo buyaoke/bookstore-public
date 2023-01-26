@@ -36,7 +36,11 @@
       <el-table-column prop="bookPrice" label="价格" width="140">
       </el-table-column>
       <el-table-column prop="bookDescrip" label="书籍描述" width="520"  max-height="100px">
-
+      </el-table-column>
+      <el-table-column  label="书籍图片" >
+        <template slot-scope="scope" >
+          <img :src="scope.row.bookImg" style="height: 50px;margin: 0 auto"/>
+        </template>
       </el-table-column>
       <el-table-column prop="bookAuthor" label="作者">
       </el-table-column>
@@ -65,9 +69,19 @@
 
     <el-dialog title="图书信息" :visible.sync="dialogFormVisible" width="30%">
       <el-form label-width="80px" size="small">
-        <el-form-item label="书名">
-          <el-input v-model="form.bookName" autocomplete="off"></el-input>
+
+        <el-form-item label="图片" style="text-align: center">
+            <el-upload
+                style="text-align: center;"
+                class="avatar-uploader"
+                action="http://localhost:9090/file/upload"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess">
+              <img v-if="form.bookImg" :src="form.bookImg" class="avatar" style="width:100%">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
         </el-form-item>
+
         <el-form-item label="价格">
           <el-input v-model="form.bookPrice" autocomplete="off"></el-input>
         </el-form-item>
@@ -195,6 +209,12 @@ export default {
           this.$message.error("批量删除失败")
         }
       })
+    },
+    handleAvatarSuccess(res,file){
+
+      this.form.bookImg = res
+      this.$forceUpdate()
+
     }
   }
 }

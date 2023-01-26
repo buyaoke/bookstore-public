@@ -19,3 +19,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+files:
+  upload:
+    path: C:\Users\15382\Desktop\毕设\code product\bookstore\files\

@@ -44,5 +44,10 @@ public class Book implements Serializable {
       @ApiModelProperty("书籍类型")
       private String bookType;
 
+      @ApiModelProperty("书籍图片")
+      private String bookImg;
+
+
+
 
 }

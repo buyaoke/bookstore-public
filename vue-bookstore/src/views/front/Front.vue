@@ -5,10 +5,10 @@
        <img src="../../assets/logo.png" width="50px"  style="position: relative;top: 5px;margin-right: 6px">换衣来到XX系统</div>
      <div style="flex: 1">
        <el-menu
-           :default-active="activeIndex2"
+
            class="el-menu-demo"
            mode="horizontal"
-           @select="handleSelect"
+
            background-color="#545c64"
            text-color="#fff"
            active-text-color="#ffd04b">
@@ -70,6 +70,13 @@ export default {
     return {
       user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null,
     }
+  },
+  methods:{
+    logout(){
+      this.$router.push("/login")
+      localStorage.removeItem("user")
+      this.$message.success("退出成功")
+    },
   }
 
 }

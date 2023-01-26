@@ -26,7 +26,7 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "C:\\Users\\15382\\Desktop\\毕设\\code product\\bookstore\\src\\main\\resources\\mapper\\")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_order")// 设置需要生成的表名
+                    builder.addInclude("sys_file")// 设置需要生成的表名
                             .addTablePrefix("t_", "c_","sys_")// 设置过滤表前缀
                             .entityBuilder().enableLombok()
                             .controllerBuilder().enableRestStyle();

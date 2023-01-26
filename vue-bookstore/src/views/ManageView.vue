@@ -8,12 +8,12 @@
 
       <el-container>
         <el-header style="border-bottom:1px solid #ccc;">
-            <Header :collapseBtnClass="collapseBtnClass" :collapse="collapse"></Header>
+            <Header :collapseBtnClass="collapseBtnClass" :collapse="collapse" :user="user"></Header>
 
         </el-header>
 
         <el-main>
-          <router-view/>
+          <router-view @refershUser="getUser"/>
 
         </el-main>
       </el-container>
@@ -35,6 +35,10 @@ export default {
   name: 'ManageView',
 
   components: {Header, Aside},
+  created() {
+    //从后台获取数据
+    this.getUser()
+  },
 
   data() {
     return {
@@ -42,7 +46,8 @@ export default {
       isCollapse: false,
       sideWidth: 200,
       isShow: true,
-      ids: {}
+      ids: {},
+      user:{},
     }
   },
 
@@ -62,6 +67,12 @@ export default {
         this.isShow = true
       }
     },
+    getUser(){
+      let username = JSON.parse(localStorage.getItem("user")).username
+      return this.request.get("/user/username/"+username).then(res => {
+        this.user = res.data
+      })
+    }
 
   },
 

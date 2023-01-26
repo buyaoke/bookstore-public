@@ -9,7 +9,7 @@
       </el-breadcrumb>
     </div>
     <div style="padding:10px 0">
-      <el-input style="width:200px" suffix-icon="el-icon-search" placeholder="请输入名称"
+      <el-input style="width:200px" suffix-icon="el-icon-search" placeholder="请输入名称" @selection-change="handleSelectionChange"
                 v-model="username"></el-input>
       <el-input style="width:200px" suffix-icon="el-icon-message" placeholder="请输入邮箱" v-model="email"
                 class="ml-5"></el-input>

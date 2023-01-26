@@ -20,7 +20,7 @@
 
     </div>
 
-    <el-table :data="tableData" border stripe header-cell-class-name="headbg" @selection-change="handleSelectionChange"
+    <el-table :data="tableData" border stripe header-cell-class-name="headbg"
               :row-style="{height: '50px'}">
 
       <el-table-column type="selection" width="55" ></el-table-column>

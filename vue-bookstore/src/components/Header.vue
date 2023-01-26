@@ -27,12 +27,13 @@ export default {
   name: "Header",
   props:{
     collapseBtnClass:String,
-    collapse:Function
+    collapse:Function,
+    user:{},
 
   },
   data(){
     return {
-      user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")) : {},
+
     }
   },
   methods:{
