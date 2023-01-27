@@ -23,7 +23,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("sys_customer")
+@TableName("sys_user")
 @ApiModel(value = "User对象", description = "")
 public class User implements Serializable {
 

@@ -11,11 +11,11 @@
   <div style="margin: 10px 0">
     <div style="background-color: #409EFF;width: 100%;height: 50px;margin-bottom: 10px;line-height: 50px">轻小说</div>
     <el-row :gutter="10">
-      <el-col :span="6" v-for="book in books" :key="book.bookID" style="margin-bottom: 10px">
+      <el-col :span="6" v-for="item in books" :key="item.bookId" style="margin-bottom: 10px">
         <div style="border: 1px solid #ccc;padding-bottom: 10px" >
-          <img :src="book.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{book.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary">详情</el-button></div>
+          <img :src="item.bookImg" alt="" style="width: 100%;height:100%">
+          <div style="padding: 10px 0"><span style="color: #666">{{item.bookName}}</span></div>
+          <div><el-button type="primary">购买</el-button><el-button type="primary" @click="$router.push('/front/bookdetail?id=' + item.bookId)">详情</el-button></div>
         </div>
 
 
@@ -23,81 +23,7 @@
 
     </el-row>
   </div>
-  <div style="margin: 10px 0">
-    <div style="background-color: #409EFF;width: 100%;height: 50px;margin-bottom: 10px;line-height: 50px">轻小说</div>
-    <el-row :gutter="10">
-      <el-col :span="6" v-for="book in books" :key="book.bookID" style="margin-bottom: 10px">
-        <div style="border: 1px solid #ccc;padding-bottom: 10px" >
-          <img :src="book.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{book.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary">详情</el-button></div>
-        </div>
 
-
-      </el-col>
-
-    </el-row>
-  </div>
-  <div style="margin: 10px 0">
-    <div style="background-color: #409EFF;width: 100%;height: 50px;margin-bottom: 10px;line-height: 50px">轻小说</div>
-    <el-row :gutter="10">
-      <el-col :span="6" v-for="book in books" :key="book.bookID" style="margin-bottom: 10px">
-        <div style="border: 1px solid #ccc;padding-bottom: 10px" >
-          <img :src="book.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{book.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary">详情</el-button></div>
-        </div>
-
-
-      </el-col>
-
-    </el-row>
-  </div>
-  <div style="margin: 10px 0">
-    <div style="background-color: #409EFF;width: 100%;height: 50px;margin-bottom: 10px;line-height: 50px">轻小说</div>
-    <el-row :gutter="10">
-      <el-col :span="6" v-for="book in books" :key="book.bookID" style="margin-bottom: 10px">
-        <div style="border: 1px solid #ccc;padding-bottom: 10px" >
-          <img :src="book.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{book.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary">详情</el-button></div>
-        </div>
-
-
-      </el-col>
-
-    </el-row>
-  </div>
-  <div style="margin: 10px 0">
-    <div style="background-color: #409EFF;width: 100%;height: 50px;margin-bottom: 10px;line-height: 50px">轻小说</div>
-    <el-row :gutter="10">
-      <el-col :span="6" v-for="book in books" :key="book.bookID" style="margin-bottom: 10px">
-        <div style="border: 1px solid #ccc;padding-bottom: 10px" >
-          <img :src="book.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{book.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary">详情</el-button></div>
-        </div>
-
-
-      </el-col>
-
-    </el-row>
-  </div>
-  <div style="margin: 10px 0">
-    <div style="background-color: #409EFF;width: 100%;height: 50px;margin-bottom: 10px;line-height: 50px">轻小说</div>
-    <el-row :gutter="10">
-      <el-col :span="6" v-for="book in books" :key="book.bookID" style="margin-bottom: 10px">
-        <div style="border: 1px solid #ccc;padding-bottom: 10px" >
-          <img :src="book.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{book.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary">详情</el-button></div>
-        </div>
-
-
-      </el-col>
-
-    </el-row>
-  </div>
 </div>
 </template>
 
@@ -117,7 +43,7 @@ export default {
     this.request.get("/book").then(res => {
       console.log(res.data)
       this.books = res.data
-      res.data.filter(v => v.type === 'png' || v.type === 'jpg' )
+      console.log(this.books)
     })
   },
 }

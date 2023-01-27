@@ -31,7 +31,7 @@ public interface OrderMapper extends BaseMapper<Order> {
             "JOIN sys_customer " +
             "on sys_customer.id = sys_order.customer_id " +
             "join sys_bussion " +
-            "on sys_bussion.id = sys_order.bussion_id ")
+            "on sys_bussion.id = sys_order.bussion_id order by id desc ")
     List<OrderDto> findOrder();
 
     @Update("update sys_order set order_price = #{orderPrice} where order_id=#{orderId}")

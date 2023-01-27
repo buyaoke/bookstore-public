@@ -40,7 +40,9 @@ const routes = [
     name: 'FrontHome',
     component: () => import('../views/front/Front.vue'),
     children: [
-        {path: "home", name: "FrontHome", component: () => import('../views/front/Home.vue')}],
+        {path: "home", name: "FrontHome", component: () => import('../views/front/Home.vue')},
+        {path: "bookDetail", name: "bookDetail", component: () => import('../views/front/BookDetail')},
+    ],
 
   },
 
