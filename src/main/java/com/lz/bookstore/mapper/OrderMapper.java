@@ -21,17 +21,17 @@ import java.util.List;
 public interface OrderMapper extends BaseMapper<Order> {
     @Select("select sys_book.book_name," +
             "sys_order.order_id," +
-            "sys_customer.username as customer_name," +
+            "sys_user.username as customer_name," +
             "sys_order.create_time," +
             "sys_order.order_price," +
-            "sys_bussion.username as bussion_name " +
+            "b.username as bussion_name " +
             "from sys_order " +
             "JOIN sys_book " +
             "on sys_book.book_id = sys_order.book_id " +
-            "JOIN sys_customer " +
-            "on sys_customer.id = sys_order.customer_id " +
-            "join sys_bussion " +
-            "on sys_bussion.id = sys_order.bussion_id order by id desc ")
+            "JOIN sys_user " +
+            "on sys_user.id = sys_order.customer_id " +
+            "join sys_user b " +
+            "on b.id = sys_order.bussion_id order by order_id desc ")
     List<OrderDto> findOrder();
 
     @Update("update sys_order set order_price = #{orderPrice} where order_id=#{orderId}")

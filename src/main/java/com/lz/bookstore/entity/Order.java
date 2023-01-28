@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -32,11 +34,15 @@ public class Order implements Serializable {
 
     private Integer bookId;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
-    private LocalDateTime updaeTime;
+    private Date updaeTime;
 
     private Double orderPrice;
+
+    private String isPayed;
+
+
 
 
 }

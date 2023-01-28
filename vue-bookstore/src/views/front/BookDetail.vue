@@ -1,6 +1,69 @@
 <template>
   <div>
-    <div>图书细节展示</div>
+
+  <div id="product" style="display: flex;margin: 10px 30px;">
+
+        <el-image :src="book.bookImg" style="height: 100vh"/>
+
+
+    <div id="text" style="height: 100%;margin-left: 20px">
+
+      <el-card class="box-card" style="height: 100vh" >
+
+          <el-form>
+          <el-form-item label="书名：" >
+           {{book.bookName}}
+          </el-form-item>
+
+
+          <el-form-item label="作者：">
+         {{book.bookAuthor}}
+          </el-form-item>
+
+
+          <el-form-item label="简介：" style="word-break: break-all;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 6;-webkit-box-orient: vertical;">
+
+                   {{book.bookDescrip}}
+          </el-form-item>
+
+
+          <el-form-item label="价格：">
+           ￥{{book.bookPrice}}
+          </el-form-item>
+
+
+          <el-form-item label="购买数量：">
+
+          <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="购买数量"></el-input-number>
+
+          </el-form-item>
+
+
+        <el-form-item style="margin-top: 60px">
+          <el-button type="primary" @click="buy">立即购买</el-button>
+          <el-button>取消</el-button>
+        </el-form-item>
+
+        </el-form>
+
+
+
+
+
+
+      </el-card>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
     <div style="margin: 30px 0">
       <div style="margin: 10px 0">
         <div style="border-bottom: 1px solid orangered;padding: 10px;font-size: 20px"></div>
@@ -86,8 +149,11 @@ export default {
       commentForm: {},
       id: this.$route.query.id,
       dialogFormVisible: false,
+      book:{},
+      num: 1
     }
-  },
+    }
+  ,
   created() {
     this.user = localStorage.getItem("user")
     this.load()
@@ -97,9 +163,13 @@ export default {
     load() {
       this.request.get("/book/" + this.id).then(res => {
         console.log(res.data)
+        this.book = res.data
       })
 
 
+    },
+    handleChange(value) {
+      console.log(value);
     },
     loadComment() {
 
@@ -139,11 +209,38 @@ export default {
     handle(pid) {
       this.commentForm = {pid: pid}
       this.dialogFormVisible = true
-    }
+    },
+
+
+    buy(){}
+
+
+
+
+
+
   }
 }
 </script>
 
+
+
 <style scoped>
+
+
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  padding: 18px 0;
+  width: 400px;
+}
+
+.box-card {
+  width: 480px;
+}
+
 
 </style>

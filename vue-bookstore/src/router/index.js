@@ -42,6 +42,7 @@ const routes = [
     children: [
         {path: "home", name: "FrontHome", component: () => import('../views/front/Home.vue')},
         {path: "bookDetail", name: "bookDetail", component: () => import('../views/front/BookDetail')},
+        {path: "bookShow", name: "bookShow", component: () => import('../views/front/BookShow')},
     ],
 
   },
@@ -53,5 +54,7 @@ const router = new VueRouter({
   base: process.env.Base_URL,
   routes
 })
+
+
 
 export default router
