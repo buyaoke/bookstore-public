@@ -1,7 +1,6 @@
 package com.lz.bookstore.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lz.bookstore.controller.dto.OrderDto;
 import com.lz.bookstore.entity.Order;
 import com.lz.bookstore.mapper.OrderMapper;
@@ -19,7 +18,7 @@ import java.util.List;
  * </p>
  *
  * @author buyaoke_lz
- * @since 2023-01-19
+ * @since 2023-01-29
  */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
@@ -46,13 +45,4 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     }
 
-    @Override
-    public boolean saveOrder(Double orderPrice ,Integer id) {
-        return orderMapper.savePrice(orderPrice,id);
-    }
-
-    @Override
-    public boolean del(Integer id){
-        return orderMapper.delPrice(id);
-    }
 }

@@ -14,8 +14,12 @@
       <el-col :span="6" v-for="item in books" :key="item.bookId" style="margin-bottom: 10px">
         <div style="border: 1px solid #ccc;padding-bottom: 10px" >
           <img :src="item.bookImg" alt="" style="width: 100%;height:100%">
-          <div style="padding: 10px 0"><span style="color: #666">{{item.bookName}}</span></div>
-          <div><el-button type="primary">购买</el-button><el-button type="primary" @click="$router.push('/front/bookdetail?id=' + item.bookId)">详情</el-button></div>
+          <div style="padding: 10px 0">
+            <span style="color: #666">{{item.bookName}}</span>
+            <span style="color: #cccccc">{{item.bussionName}}aaaaa</span>
+          </div>
+          <div><el-button type="primary" @click="buy">购买</el-button>
+            <el-button type="primary" @click="$router.push('/front/bookdetail?bookId=' + item.bookId+'&bussinId='+item.bussionId)">详情</el-button></div>
         </div>
 
 
@@ -43,9 +47,14 @@ export default {
     this.request.get("/book").then(res => {
       console.log(res.data)
       this.books = res.data
-      console.log(this.books)
+
     })
   },
+  methods:{
+    buy(){
+      $
+    }
+  }
 }
 </script>
 

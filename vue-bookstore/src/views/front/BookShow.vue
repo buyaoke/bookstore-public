@@ -28,7 +28,7 @@ export default {
 
   created() {
     this.booktype = this.$route.query.booktype
-    console.log(this.booktype);
+
   },
   methods:{
 

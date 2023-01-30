@@ -23,7 +23,7 @@
 
           <el-form-item label="简介：" style="word-break: break-all;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 6;-webkit-box-orient: vertical;">
 
-                   {{book.bookDescrip}}
+            {{book.bookDescrip}}
           </el-form-item>
 
 
@@ -147,22 +147,26 @@ export default {
     return {
       comments: [],
       commentForm: {},
-      id: this.$route.query.id,
+      bookId: this.$route.query.bookId,
+      bussionId:this.$route.query.bussinId,
       dialogFormVisible: false,
       book:{},
+      user:{},
       num: 1
+
     }
     }
   ,
   created() {
-    this.user = localStorage.getItem("user")
+    this.user = JSON.parse(localStorage.getItem("user"))
+    console.log("aaaaa",this.user.id)
     this.load()
     this.loadComment()
   },
   methods: {
     load() {
-      this.request.get("/book/" + this.id).then(res => {
-        console.log(res.data)
+      this.request.get("/book/" + this.bookId).then(res => {
+
         this.book = res.data
       })
 
@@ -173,12 +177,13 @@ export default {
     },
     loadComment() {
 
-      this.request.get("/comment/tree/" + this.id).then(res => {
+      this.request.get("/comment/tree/" + this.bookId).then(res => {
+        console.log(res.data)
         this.comments = res.data
       })
     },
     save() {
-      this.commentForm.bookId = this.id
+      this.commentForm.bookId = this.bookId
       if (this.commentForm.contentReply) {
         this.commentForm.content = this.commentForm.contentReply
       }
@@ -196,7 +201,7 @@ export default {
     },
     del(bookId) {
 
-      this.request.delete("/comment/" + bookId).then(res => {
+      this.request.delete("/comment/" + this.bookId).then(res => {
         if (res.code === "200") {
           this.$message.success("删除成功");
           this.loadComment();
@@ -212,8 +217,22 @@ export default {
     },
 
 
-    buy(){}
+    buy(){
+      let order = {}
+     order.orderPrice=this.book.bookPrice * this.num,
+      order.bussionId=this.bussionId,
+      order.customerId=this.user.id,
+     order.bookId=this.bookId,
+      order.bookCount=this.num
+      this.request.post("/order",order
+      ).then(res => {
+          if(res.code === "200"){
+            this.$message.success("已生成图书订单，请及时支付")
+          }
 
+
+      })
+    }
 
 
 

@@ -1,6 +1,7 @@
 package com.lz.bookstore.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -46,6 +47,12 @@ public class Book implements Serializable {
 
       @ApiModelProperty("书籍图片")
       private String bookImg;
+
+      @ApiModelProperty("商家id")
+      private String bussionId;
+
+      @TableField(exist = false)
+      private String bussionName;
 
 
 

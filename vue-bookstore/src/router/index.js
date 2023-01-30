@@ -43,6 +43,7 @@ const routes = [
         {path: "home", name: "FrontHome", component: () => import('../views/front/Home.vue')},
         {path: "bookDetail", name: "bookDetail", component: () => import('../views/front/BookDetail')},
         {path: "bookShow", name: "bookShow", component: () => import('../views/front/BookShow')},
+        {path: "orderList", name: "orderList", component: () => import('../views/front/OrderList')},
     ],
 
   },

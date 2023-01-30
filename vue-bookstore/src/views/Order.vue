@@ -35,7 +35,7 @@
       </el-table-column>
       <el-table-column prop="orderPrice" label="价格" width="140">
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" width="520"  max-height="100px">
+      <el-table-column prop="createTime" label="创建时间"   max-height="100px" >
       </el-table-column>
 
 
@@ -120,7 +120,7 @@ export default {
 
         }
       }).then(res => {
-        console.log(res.code === "200")
+        console.log(res.data.data)
         this.tableData = res.data.data;
         this.total = res.data.tolal;
 

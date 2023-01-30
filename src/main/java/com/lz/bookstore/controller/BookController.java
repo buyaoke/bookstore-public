@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lz.bookstore.common.Result;
+import com.lz.bookstore.entity.User;
+import com.lz.bookstore.service.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -27,6 +29,9 @@ public class BookController {
     @Autowired
     private IBookService bookService;
 
+    @Autowired
+    private IUserService userService;
+
     @PostMapping
     public Result save(@RequestBody Book book) {
         boolean flag = bookService.saveOrUpdate(book);
@@ -41,8 +46,13 @@ public class BookController {
 
     @GetMapping
     public Result findAll() {
-        List<Book> Books = bookService.list();
-        return Result.success(Books);
+        List<Book> books = bookService.list();
+        for (Book book : books) {
+            User user = userService.getById(book.getBussionId());
+            book.setBussionName(user.getNickname());
+
+        }
+        return Result.success(books);
     }
 
     @GetMapping("/{id}")
@@ -64,6 +74,16 @@ public class BookController {
             query.like("book_author",author);
         }
         IPage<Book> page = bookService.page(new Page<>(pageNum, pageSize),query);
+        List<Book> records = page.getRecords();
+        for (Book book : records) {
+            User user = userService.getById(book.getBussionId());
+            if(user != null)
+                book.setBussionName(user.getNickname());
+            else {
+                book.setBussionName("");
+            }
+
+        }
         return Result.success(page);
     }
     @PostMapping("/del/batch")

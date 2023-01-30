@@ -84,6 +84,8 @@ public class EchatrsController {
         return Result.success(objectHashMap);
 
     }
+
+
     @GetMapping("/members")
     public Result members(){
         List<User> users = userService.list();

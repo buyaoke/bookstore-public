@@ -28,14 +28,15 @@
     <el-table :data="tableData" border stripe header-cell-class-name="headbg" @selection-change="handleSelectionChange"
               :row-style="{height: '50px'}">
 
-      <el-table-column type="selection" width="55" ></el-table-column>
-<!--      <el-table-column prop="bookId" label="Id" width="80">-->
-<!--      </el-table-column>-->
+
       <el-table-column prop="bookName" label="书名" width="80">
+      </el-table-column>
+      <el-table-column prop="bussionName" label="售卖商家" width="80">
       </el-table-column>
       <el-table-column prop="bookPrice" label="价格" width="140">
       </el-table-column>
-      <el-table-column prop="bookDescrip" label="书籍描述" width="520"  max-height="100px">
+      <el-table-column prop="bookDescrip" label="书籍描述" width="520" style="word-break: break-all;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;">
+
       </el-table-column>
       <el-table-column  label="书籍图片" >
         <template slot-scope="scope" >
@@ -138,7 +139,7 @@ export default {
 
         }
       }).then(res => {
-        console.log(res.code === "200")
+
         this.tableData = res.data.records;
         this.total = res.data.total;
 

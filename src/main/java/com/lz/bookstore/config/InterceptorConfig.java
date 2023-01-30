@@ -13,12 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(jwtInterceptor())
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/file/**","/file/bookImg/**")
-//                .excludePathPatterns("/book/page")
-//                .excludePathPatterns("/user/login","/user/register","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
-//                .excludePathPatterns("/error");
+        registry.addInterceptor(jwtInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/file/**","/file/bookImg/**")
+                .excludePathPatterns("/book/page")
+                .excludePathPatterns("/user/login","/user/register","/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**")
+                .excludePathPatterns("/error");
     }
 
     @Bean

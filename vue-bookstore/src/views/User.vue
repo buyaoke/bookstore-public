@@ -124,7 +124,6 @@ export default {
           address: this.address
         }
       }).then(res => {
-        console.log(res.code === "200")
         this.tableData = res.data.records;
         this.total = res.data.total;
 

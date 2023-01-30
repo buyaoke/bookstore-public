@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import io.swagger.annotations.ApiModel;
@@ -23,7 +24,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-  @TableName("sys_comment")
+@TableName("sys_comment")
 @ApiModel(value = "Comment对象", description = "")
 public class Comment implements Serializable {
 
@@ -39,7 +40,7 @@ public class Comment implements Serializable {
       private Integer userId;
 
       @ApiModelProperty("评论时间")
-      private LocalDateTime time;
+      private Date time;
 
       @ApiModelProperty("最上级的父级ID")
       private Integer pid;

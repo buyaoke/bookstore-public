@@ -10,4 +10,5 @@ public class UserDto {
     private String avatarUrl;
     private String token;
     private String type;
+    private Integer id;
 }

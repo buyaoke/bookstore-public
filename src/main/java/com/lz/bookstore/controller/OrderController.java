@@ -1,12 +1,8 @@
 package com.lz.bookstore.controller;
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.injector.methods.UpdateById;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lz.bookstore.common.Result;
 import com.lz.bookstore.controller.dto.OrderDto;
-import com.lz.bookstore.controller.dto.UserDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -22,7 +18,7 @@ import com.lz.bookstore.entity.Order;
  * </p>
  *
  * @author buyaoke_lz
- * @since 2023-01-19
+ * @since 2023-01-29
  */
 @RestController
 @RequestMapping("/order")
@@ -31,23 +27,23 @@ public class OrderController {
     @Autowired
     private IOrderService orderService;
 
-    @GetMapping("/save")
-    public Result save(@RequestParam Double orderPrice,@RequestParam Integer orderId) {
-        boolean flag = orderService.saveOrder(orderPrice,orderId);
+    @PostMapping
+    public Result save(@RequestBody Order order) {
+
+        boolean flag = orderService.saveOrUpdate(order);
         return Result.success(flag);
     }
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        boolean flag = orderService.del(id);
+        boolean flag = orderService.removeById(id);
         return Result.success(flag);
     }
 
     @GetMapping
     public Result findAll() {
-        List<OrderDto> orders = orderService.findOrder();
-
-        return Result.success(orders);
+        List<OrderDto> Orders = orderService.findOrder();
+        return Result.success(Orders);
     }
 
     @GetMapping("/{id}")
@@ -57,14 +53,11 @@ public class OrderController {
     }
 
     @GetMapping("/page")
-    public Result findOrderPage(@RequestParam Integer pageNum,
-                                @RequestParam Integer pageSize) {
-
+    public Result findPage(@RequestParam Integer pageNum,
+                           @RequestParam Integer pageSize) {
         HashMap<String, Object> page = orderService.findPage(pageNum,pageSize);
         return Result.success(page);
     }
-
-
 
 }
 
