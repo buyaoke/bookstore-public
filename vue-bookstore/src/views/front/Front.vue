@@ -15,14 +15,14 @@
          <el-menu-item index="/front/home">首页</el-menu-item>
          <el-submenu index="2">
            <template slot="title">书籍类型</template>
-           <el-menu-item @click="$router.push('/front/bookShow?booktype=\'历史\'')" style="text-align: center">历史</el-menu-item>
-           <el-menu-item @click="$router.push('/front/bookShow?booktype=\'名著\'')" style="text-align: center">名著</el-menu-item>
-           <el-menu-item index="/front/bookShow?booktype='轻小说'" style="text-align: center">轻小说</el-menu-item>
+           <el-menu-item @click="$router.push('/front/bookShow?booktype=历史')" style="text-align: center">历史</el-menu-item>
+           <el-menu-item @click="$router.push('/front/bookShow?booktype=名著')" style="text-align: center">名著</el-menu-item>
+           <el-menu-item index="/front/bookShow?booktype=轻小说" style="text-align: center">轻小说</el-menu-item>
          </el-submenu>
          <el-menu-item style="margin-left: 190px;line-height:60px" >
            <el-input style="width:600px" suffix-icon="el-icon-search" placeholder="请输入书名"
                      v-model="bookName"></el-input>
-           <el-button class="ml-5" type="primary" @click="load">搜索</el-button>
+           <el-button class="ml-5" type="primary" @click="search">搜索</el-button>
            <el-button class="ml-5" type="warning" @click="reset">重置</el-button>
          </el-menu-item>
 
@@ -85,7 +85,12 @@ export default {
     reset(){
       this.bookName = ''
     },
-    load(){
+    search(){
+      if(this.bookName === ''){
+        this.$message.error("请输入书名后再查询")
+      }else {
+        this.$router.push("/front/bookShow?bookName="+this.bookName)
+      }
 
     }
   }

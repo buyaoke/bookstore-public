@@ -35,14 +35,33 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public HashMap<String, Object> findPage(Integer pageNum, Integer pageSize){
         List<OrderDto> order = this.findOrder();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        Integer size = order.size();
-        List<OrderDto> subList = CollUtil.sub(order,(pageNum - 1) * pageSize, pageNum * pageSize);
-        hashMap.put("tolal",size);
-        hashMap.put("data",subList);
+        HashMap<String, Object> hashMap = this.page(order, pageNum, pageSize);
         return hashMap;
 
 
+    }
+
+    @Override
+    public HashMap<String, Object> findPageByCustomerId(Integer customerId,Integer pageNum, Integer pageSize) {
+        List<OrderDto> order = orderMapper.findOrderByCutomerId(customerId);
+        HashMap<String, Object> page = this.page(order, pageNum, pageSize);
+        return page;
+    }
+
+    /**
+     *
+     * @param list 通过mapper查询后的所有数据list集合
+     * @param pageNum 第几页
+     * @param pageSize 每页展示的数据量
+     * @return
+     */
+    private HashMap<String,Object> page(List<OrderDto> list,Integer pageNum, Integer pageSize){
+        HashMap<String, Object> page = new HashMap<>();
+        Integer size = list.size();
+        List<OrderDto> subList = CollUtil.sub(list,(pageNum - 1) * pageSize, pageNum * pageSize);
+        page.put("total",size);
+        page.put("data",subList);
+        return page;
     }
 
 }

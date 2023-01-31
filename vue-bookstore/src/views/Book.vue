@@ -35,7 +35,7 @@
       </el-table-column>
       <el-table-column prop="bookPrice" label="价格" width="140">
       </el-table-column>
-      <el-table-column prop="bookDescrip" label="书籍描述" width="520" style="word-break: break-all;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;">
+      <el-table-column prop="bookDescrip" label="书籍描述" width="450" style="word-break: break-all;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 5;-webkit-box-orient: vertical;">
 
       </el-table-column>
       <el-table-column  label="书籍图片" >
@@ -83,6 +83,9 @@
             </el-upload>
         </el-form-item>
 
+        <el-form-item label="书名">
+          <el-input v-model="form.bookName" autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="价格">
           <el-input v-model="form.bookPrice" autocomplete="off"></el-input>
         </el-form-item>
@@ -144,6 +147,7 @@ export default {
         this.total = res.data.total;
 
 
+
       })
     },
     reset() {
@@ -153,6 +157,9 @@ export default {
       this.load()
     },
     save() {
+
+      this.form.bussionId = JSON.parse(localStorage.getItem("user")).id
+
       this.request.post("/book", this.form).then(res => {
         if (res.code === "200") {
           this.$message.success("保存成功")

@@ -14,36 +14,22 @@
           <el-form-item label="书名：" >
            {{book.bookName}}
           </el-form-item>
-
-
           <el-form-item label="作者：">
          {{book.bookAuthor}}
           </el-form-item>
-
-
           <el-form-item label="简介：" style="word-break: break-all;text-overflow: ellipsis;overflow: hidden;display: -webkit-box;-webkit-line-clamp: 6;-webkit-box-orient: vertical;">
-
             {{book.bookDescrip}}
           </el-form-item>
-
-
-          <el-form-item label="价格：">
+            <el-form-item label="价格：">
            ￥{{book.bookPrice}}
           </el-form-item>
-
-
           <el-form-item label="购买数量：">
-
           <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="购买数量"></el-input-number>
-
           </el-form-item>
-
-
         <el-form-item style="margin-top: 60px">
           <el-button type="primary" @click="buy">立即购买</el-button>
           <el-button>取消</el-button>
         </el-form-item>
-
         </el-form>
 
 
@@ -55,12 +41,6 @@
 
     </div>
   </div>
-
-
-
-
-
-
 
 
 
@@ -136,12 +116,17 @@
         </div>
       </el-dialog>
     </div>
+
+
   </div>
 
 </template>
 
 <script>
+
 export default {
+
+
   name: "BookDetail",
   data() {
     return {
@@ -152,14 +137,16 @@ export default {
       dialogFormVisible: false,
       book:{},
       user:{},
-      num: 1
-
+      num: 1,
+      order:{},
+      orderDialogFormVisible:false,
+      formLabelWidth: '120px'
     }
     }
   ,
   created() {
     this.user = JSON.parse(localStorage.getItem("user"))
-    console.log("aaaaa",this.user.id)
+
     this.load()
     this.loadComment()
   },
@@ -173,12 +160,12 @@ export default {
 
     },
     handleChange(value) {
-      console.log(value);
+
     },
     loadComment() {
 
       this.request.get("/comment/tree/" + this.bookId).then(res => {
-        console.log(res.data)
+
         this.comments = res.data
       })
     },
@@ -201,7 +188,7 @@ export default {
     },
     del(bookId) {
 
-      this.request.delete("/comment/" + this.bookId).then(res => {
+      this.request.delete("/comment/" + bookId).then(res => {
         if (res.code === "200") {
           this.$message.success("删除成功");
           this.loadComment();
@@ -218,13 +205,18 @@ export default {
 
 
     buy(){
-      let order = {}
-     order.orderPrice=this.book.bookPrice * this.num,
-      order.bussionId=this.bussionId,
-      order.customerId=this.user.id,
-     order.bookId=this.bookId,
-      order.bookCount=this.num
-      this.request.post("/order",order
+
+      this.order.orderPrice=this.book.bookPrice * this.num
+      this.order.bussionId=this.bussionId
+      this.order.customerId=this.user.id
+      this.order.bookId=this.bookId
+      this.order.bookCount=this.num
+
+
+      this.orderDialogFormVisible = true;
+
+
+      this.request.post("/order",this.order
       ).then(res => {
           if(res.code === "200"){
             this.$message.success("已生成图书订单，请及时支付")
@@ -232,7 +224,8 @@ export default {
 
 
       })
-    }
+    },
+
 
 
 

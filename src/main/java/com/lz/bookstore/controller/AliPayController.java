@@ -42,7 +42,7 @@ public class AliPayController {
     @Resource
     private OrderMapper orderMapper;
 
-    @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
+    @GetMapping("/pay") // ?subject=xxx&traceNo=xxx&totalAmount=xxx
     public void pay(AliPay aliPay, HttpServletResponse httpResponse) throws Exception {
         // 1. 创建Client，通用SDK提供的Client，负责调用支付宝的API
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, aliPayConfig.getAppId(),
@@ -51,6 +51,7 @@ public class AliPayController {
         // 2. 创建 Request并设置Request参数
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();  // 发送请求的 Request类
         request.setNotifyUrl(aliPayConfig.getNotifyUrl());
+        request.setReturnUrl(aliPayConfig.getReturnUrl());
         JSONObject bizContent = new JSONObject();
         bizContent.set("out_trade_no", aliPay.getTraceNo());  // 我们自己生成的订单编号
         bizContent.set("total_amount", aliPay.getTotalAmount()); // 订单的总金额

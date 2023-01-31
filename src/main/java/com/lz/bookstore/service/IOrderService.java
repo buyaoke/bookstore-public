@@ -20,4 +20,6 @@ public interface IOrderService extends IService<Order> {
     List<OrderDto> findOrder();
 
     HashMap<String, Object> findPage(Integer pageNum, Integer pageSize);
+
+    HashMap<String, Object> findPageByCustomerId(Integer customerId,Integer pageNum, Integer pageSize);
 }

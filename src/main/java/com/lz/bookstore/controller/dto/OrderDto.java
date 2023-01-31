@@ -14,6 +14,7 @@ public class OrderDto {
    private Double orderPrice;
    private String bussionName;
    private String customerName;
+   private String isPayed;
 
 
 }

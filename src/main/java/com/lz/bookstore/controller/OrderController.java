@@ -3,6 +3,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lz.bookstore.common.Result;
 import com.lz.bookstore.controller.dto.OrderDto;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -54,8 +55,15 @@ public class OrderController {
 
     @GetMapping("/page")
     public Result findPage(@RequestParam Integer pageNum,
-                           @RequestParam Integer pageSize) {
-        HashMap<String, Object> page = orderService.findPage(pageNum,pageSize);
+                           @RequestParam Integer pageSize,
+                           @RequestParam(required = false) Integer customerId) {
+        HashMap<String, Object> page = null;
+        if(customerId == null){
+            page = orderService.findPage(pageNum,pageSize);
+        }else {
+            page = orderService.findPageByCustomerId(customerId,pageNum,pageSize);
+        }
+
         return Result.success(page);
     }
 

@@ -5,14 +5,14 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/gloable.css'
 import request from "@/utils/request";
-
+import { v4 as uuid } from 'uuid';
 
 
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI,{size:"small"});
-
+Vue.use(uuid)
 
 Vue.prototype.request=request
 

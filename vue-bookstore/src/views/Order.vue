@@ -120,9 +120,8 @@ export default {
 
         }
       }).then(res => {
-        console.log(res.data.data)
         this.tableData = res.data.data;
-        this.total = res.data.tolal;
+        this.total = res.data.total;
 
 
       })
