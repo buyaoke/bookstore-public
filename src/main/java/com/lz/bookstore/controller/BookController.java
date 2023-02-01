@@ -85,8 +85,10 @@ public class BookController {
     public Result findPage(@RequestParam Integer pageNum,
                            @RequestParam Integer pageSize,
                            @RequestParam(defaultValue = "") String bookName,
-                           @RequestParam(defaultValue = "") String author) {
+                           @RequestParam(defaultValue = "") String author,
+                           @RequestParam(required = false) Integer id) {
         QueryWrapper<Book> query = new QueryWrapper<>();
+        query.eq("bussion_id",id);
         if (StrUtil.isNotEmpty(bookName)){
             query.like("book_name",bookName);
         }

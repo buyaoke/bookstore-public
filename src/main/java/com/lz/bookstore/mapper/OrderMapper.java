@@ -31,6 +31,8 @@ public interface OrderMapper extends BaseMapper<Order> {
             "on b.id = sys_order.bussion_id order by order_id desc ")
     List<OrderDto> findOrder();
 
+
+
     @Select("select sys_book.book_name, sys_order.order_id, sys_order.book_count,sys_order.is_payed, " +
             "sys_user.nickname as customer_name, sys_order.create_time,sys_order.order_price,b.username as bussion_name " +
             "from sys_order " +
@@ -40,4 +42,14 @@ public interface OrderMapper extends BaseMapper<Order> {
             "where sys_order.customer_id = #{customerId} " +
             "order by order_id desc ")
     List<OrderDto> findOrderByCutomerId(Integer customerId);
+
+    @Select("select sys_book.book_name, sys_order.order_id, sys_order.book_count,sys_order.is_payed, " +
+            "sys_user.nickname as customer_name, sys_order.create_time,sys_order.order_price,b.username as bussion_name " +
+            "from sys_order " +
+            "left JOIN sys_book on sys_book.book_id = sys_order.book_id " +
+            "left JOIN sys_user on sys_user.id = sys_order.customer_id " +
+            "left join sys_user b on b.id = sys_order.bussion_id " +
+            "where sys_order.bussion_id = #{bussionId} " +
+            "order by order_id desc ")
+    List<OrderDto> findOrderBybussionId(Integer bussionId);
 }

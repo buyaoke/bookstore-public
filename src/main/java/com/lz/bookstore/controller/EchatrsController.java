@@ -12,10 +12,7 @@ import com.lz.bookstore.service.IOrderService;
 import com.lz.bookstore.service.IUserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -31,7 +28,7 @@ public class EchatrsController {
     private IOrderService orderService;
 
     @GetMapping("/revenue")
-    public Result get(){
+    public Result get(@RequestParam Integer bussionId){
         Double JANUARY = 0.0;
         Double FEBRUARY = 0.0;
         Double MARCH = 0.0;
@@ -47,7 +44,7 @@ public class EchatrsController {
         Double UNDECIMBER = 0.0;
         Double max=0.0;
 
-        List<OrderDto> order = orderService.findOrder();
+        List<OrderDto> order = orderService.findOrderByBusionId(bussionId);
         HashSet<String> customerSet = new HashSet<>();
         for (OrderDto orderDto : order) {
             Date createTime = orderDto.getCreateTime();

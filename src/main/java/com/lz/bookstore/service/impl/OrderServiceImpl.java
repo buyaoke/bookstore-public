@@ -32,6 +32,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order;
 
     }
+
+    @Override
+    public List<OrderDto> findOrderByBusionId(Integer bussionId) {
+        return orderMapper.findOrderBybussionId(bussionId);
+    }
+
     @Override
     public HashMap<String, Object> findPage(Integer pageNum, Integer pageSize){
         List<OrderDto> order = this.findOrder();
@@ -44,6 +50,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public HashMap<String, Object> findPageByCustomerId(Integer customerId,Integer pageNum, Integer pageSize) {
         List<OrderDto> order = orderMapper.findOrderByCutomerId(customerId);
+        HashMap<String, Object> page = this.page(order, pageNum, pageSize);
+        return page;
+    }
+
+    @Override
+    public HashMap<String, Object> findPageBubussinId(Integer bussionId,Integer pageNum, Integer pageSize) {
+        List<OrderDto> order = orderMapper.findOrderBybussionId(bussionId);
         HashMap<String, Object> page = this.page(order, pageNum, pageSize);
         return page;
     }

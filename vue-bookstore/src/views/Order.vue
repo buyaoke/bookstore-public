@@ -23,15 +23,14 @@
     <el-table :data="tableData" border stripe header-cell-class-name="headbg"
               :row-style="{height: '50px'}">
 
-      <el-table-column type="selection" width="55" ></el-table-column>
-            <el-table-column prop="orderId" label="Id" width="80">
+
+            <el-table-column prop="orderId" label="订单Id" width="200">
             </el-table-column>
 
-      <el-table-column prop="bussionName" label="商家名称" width="80">
+
+      <el-table-column prop="customerName" label="买家昵称" width="80">
       </el-table-column>
-      <el-table-column prop="customerName" label="买家名称" width="80">
-      </el-table-column>
-      <el-table-column prop="bookName" label="书名" width="200">
+      <el-table-column prop="bookName" label="书名" width="300">
       </el-table-column>
       <el-table-column prop="orderPrice" label="价格" width="140">
       </el-table-column>
@@ -108,6 +107,7 @@ export default {
     }
   },
   created() {
+    this.id = this.$route.query.id
     this.load()
   },
   methods:{
@@ -116,7 +116,8 @@ export default {
       this.request.get("/order/page", {
         params: {
           pageNum: this.pageNum,
-          pageSize: this.pageSize
+          pageSize: this.pageSize,
+          bussonId:this.id
 
         }
       }).then(res => {

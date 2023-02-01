@@ -13,8 +13,8 @@
     <el-menu-item index="/home">
       <i class="el-icon-house"></i><span slot="title">主页</span>
     </el-menu-item>
-    <el-menu-item index="/chart">
-      <i class="el-icon-house"></i><span slot="title">收益</span>
+    <el-menu-item :index="'/chart?id='+this.user.id" v-if="user.type==='商家'">
+      <i class="el-icon-house"></i><span slot="title">图书收益</span>
     </el-menu-item>
     <el-submenu index="2">
       <template slot="title">
@@ -22,13 +22,13 @@
       </template>
 
 
-        <el-menu-item index="/user">
+        <el-menu-item index="/user" v-if="user.type ==='管理员' ">
           <i class="el-icon-s-custom"></i><span slot="title">用户管理</span>
           </el-menu-item>
-        <el-menu-item index="/book">
+        <el-menu-item :index="'/book?id='+this.user.id" v-if="user.type==='商家'">
           <i class="el-icon-s-custom"></i><span slot="title">书籍管理</span>
           </el-menu-item>
-          <el-menu-item index="/order">
+          <el-menu-item :index="'/order?id='+this.user.id" v-if="user.type==='商家'">
           <i class="el-icon-s-custom"></i><span slot="title">订单管理</span>
           </el-menu-item>
 
@@ -46,8 +46,14 @@ export default {
     isCollapse:Boolean
 
   },
+  data(){
+    return {
+      user:JSON.parse(localStorage.getItem("user"))
+    }
+  }
 }
 </script>
+
 
 <style scoped>
 

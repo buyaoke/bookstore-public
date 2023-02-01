@@ -120,6 +120,7 @@ export default {
       pageSize: 2,
       bookName:"",
       author:"",
+      id:0,
 
       dialogFormVisible: false,
       form: {},
@@ -129,6 +130,7 @@ export default {
     }
   },
   created() {
+    this.id = this.$route.query.id
     this.load()
   },
   methods:{
@@ -139,6 +141,7 @@ export default {
           pageSize: this.pageSize,
           bookName:this.bookName,
           author:this.author,
+          id:this.id
 
         }
       }).then(res => {

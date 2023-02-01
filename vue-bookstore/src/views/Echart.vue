@@ -45,7 +45,11 @@ export default {
       customercount:0,
       max:0,
       maxMonth:0,
+      id:0
     }
+  },
+  created() {
+   this.id = this.$route.query.id
   },
   mounted() {
     var chartDom = document.getElementById('main');
@@ -126,7 +130,11 @@ export default {
     var pieChart = echarts.init(pieDom);
 
 
-    this.request.get("/echarts/revenue").then(res => {
+    this.request.get("/echarts/revenue",{
+      params:{
+        bussionId:this.id
+      }
+    }).then(res => {
       this.customercount = res.data.customercount
       this.max = res.data.max
       this.maxMonth = res.data.maxMonth

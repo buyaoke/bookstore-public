@@ -50,7 +50,7 @@ export default {
             if (res.code === "200"){
               localStorage.setItem("user",JSON.stringify(res.data))
               this.$message.success("登录成功")
-              if(res.data.type === "customer"){
+              if(res.data.type === "顾客"){
                 this.$router.push("/front/home")
               }else {
                 this.$router.push("/home")

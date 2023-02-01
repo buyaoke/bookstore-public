@@ -44,6 +44,7 @@ const routes = [
         {path: "bookDetail", name: "bookDetail", component: () => import('../views/front/BookDetail')},
         {path: "bookShow", name: "bookShow", component: () => import('../views/front/BookShow')},
         {path: "orderList", name: "orderList", component: () => import('../views/front/OrderList')},
+        {path: "person", name: "Person", component: () => import('../views/front/Person')},
     ],
 
   },
